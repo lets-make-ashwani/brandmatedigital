@@ -99,95 +99,105 @@
 .partners-container {
   background: #062041;
   border-radius: var(--radius-2xl);
-  padding: 48px;
+  padding: 40px 24px;
   border: 1px solid rgba(255, 255, 255, 0.08);
+  height: 380px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .partners-header {
   font-family: var(--font-display);
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-weight: 800;
   text-align: center;
-  margin-bottom: 36px;
+  margin-bottom: 20px;
   color: var(--white);
   text-transform: uppercase;
   letter-spacing: 1.5px;
 }
 
-.partners-logo-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 16px;
-  justify-content: center;
-}
-
 .partner-logo-card {
-  padding: 16px 10px;
-  border-radius: var(--radius-lg);
   font-family: var(--font-display);
   font-weight: 800;
   font-size: 1.05rem;
-  text-align: center;
-  cursor: pointer;
-  transition: all var(--transition-base);
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: var(--shadow-sm);
-}
-
-.partner-logo-card:hover {
-  transform: translateY(-5px) scale(1.03);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
 }
 
 /* ── CLIENTS SECTION ── */
 .clients-container {
   background: #062041;
   border-radius: var(--radius-2xl);
-  padding: 48px;
+  padding: 40px 24px;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  height: 100%;
+  height: 380px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 
 .clients-header {
   font-family: var(--font-display);
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-weight: 800;
   text-align: center;
-  margin-bottom: 36px;
+  margin-bottom: 20px;
   color: var(--white);
   text-transform: uppercase;
   letter-spacing: 1.5px;
 }
 
-.clients-logo-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-  gap: 12px;
-  justify-content: center;
-  align-content: start;
-  flex-grow: 1;
-}
-
 .client-logo-card {
-  padding: 12px 8px;
-  border-radius: var(--radius-lg);
-  text-align: center;
-  cursor: pointer;
-  transition: all var(--transition-base);
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: var(--shadow-sm);
-  min-height: 50px;
 }
 
-.client-logo-card:hover {
-  transform: translateY(-5px) scale(1.03);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+/* ── 3D Carousel Styles ── */
+.carousel-3d-perspective {
+  width: 100%;
+  height: 240px;
+  perspective: 1200px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.carousel-3d-track {
+  width: 130px;
+  height: 60px;
+  position: relative;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.carousel-3d-item {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 130px;
+  height: 60px;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  transform-origin: center center;
+  backface-visibility: visible;
+  will-change: transform, opacity, filter;
+  transition: border-color var(--transition-base), background var(--transition-base), box-shadow var(--transition-base);
+}
+
+.carousel-3d-item:hover {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 0 15px rgba(43, 179, 255, 0.2);
+  border-color: rgba(43, 179, 255, 0.4) !important;
 }
 
 @media (max-width: 1024px) {

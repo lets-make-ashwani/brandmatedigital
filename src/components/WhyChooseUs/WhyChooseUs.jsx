@@ -290,6 +290,87 @@ const getClientLogo = (name) => {
 }
 
 function WhyChooseUs() {
+  const clientTrackRef = React.useRef(null)
+  const partnerTrackRef = React.useRef(null)
+
+  React.useEffect(() => {
+    let animationFrameId
+    let lastScrollY = window.scrollY
+    let currentAngle = 0
+    const radius = 280 // Cylinder radius in px
+
+    const updateRotation = () => {
+      const scrollY = window.scrollY
+      // Auto-spin base speed: slow, gentle rotation
+      currentAngle += 0.2
+      
+      // Add scroll velocity/influence
+      const scrollDelta = scrollY - lastScrollY
+      currentAngle += scrollDelta * 0.08
+      lastScrollY = scrollY
+
+      // Rotate Client Track Clockwise
+      if (clientTrackRef.current) {
+        clientTrackRef.current.style.transform = `rotateY(${currentAngle}deg)`
+        const items = clientTrackRef.current.children
+        const count = items.length
+        const angleStep = 360 / count
+        
+        for (let i = 0; i < count; i++) {
+          const itemAngle = (currentAngle + i * angleStep) % 360
+          const rad = (itemAngle * Math.PI) / 180
+          const cosVal = Math.cos(rad) // 1 at front, -1 at back
+          
+          // Smooth depth blending
+          const opacity = 0.08 + 0.92 * (cosVal + 1) / 2
+          const scale = 0.75 + 0.3 * (cosVal + 1) / 2
+          const blurVal = (1 - (cosVal + 1) / 2) * 2.5
+          
+          items[i].style.opacity = opacity
+          items[i].style.filter = `blur(${blurVal}px)`
+          items[i].style.zIndex = Math.round((cosVal + 1) * 100)
+          
+          const origTransform = items[i].getAttribute('data-orig-transform')
+          if (origTransform) {
+            items[i].style.transform = `${origTransform} scale(${scale})`
+          }
+        }
+      }
+
+      // Rotate Partner Track Counter-Clockwise
+      if (partnerTrackRef.current) {
+        partnerTrackRef.current.style.transform = `rotateY(${-currentAngle}deg)`
+        const items = partnerTrackRef.current.children
+        const count = items.length
+        const angleStep = 360 / count
+        
+        for (let i = 0; i < count; i++) {
+          const itemAngle = (-currentAngle + i * angleStep) % 360
+          const rad = (itemAngle * Math.PI) / 180
+          const cosVal = Math.cos(rad) // 1 at front, -1 at back
+          
+          const opacity = 0.08 + 0.92 * (cosVal + 1) / 2
+          const scale = 0.75 + 0.3 * (cosVal + 1) / 2
+          const blurVal = (1 - (cosVal + 1) / 2) * 2.5
+          
+          items[i].style.opacity = opacity
+          items[i].style.filter = `blur(${blurVal}px)`
+          items[i].style.zIndex = Math.round((cosVal + 1) * 100)
+          
+          const origTransform = items[i].getAttribute('data-orig-transform')
+          if (origTransform) {
+            items[i].style.transform = `${origTransform} scale(${scale})`
+          }
+        }
+      }
+
+      animationFrameId = requestAnimationFrame(updateRotation)
+    }
+
+    animationFrameId = requestAnimationFrame(updateRotation)
+    return () => cancelAnimationFrame(animationFrameId)
+  }, [])
+
   const cards = [
     { icon: Icons.trendingUp, title: 'Result-Driven Marketing Strategies', text: 'We design and execute campaigns with sharp focus on conversion rates and direct business results.' },
     { icon: Icons.barChart, title: 'Data-Backed Strategic Approach', text: 'Decisions are guided by thorough analysis of audience behaviors, market trends, and performance metrics.' },
@@ -352,6 +433,8 @@ function WhyChooseUs() {
     { name: 'Disney+ Hotstar', bg: '#0c111b', text: '#fff' }
   ]
 
+  const radius = 280
+
   return (
     <section className="why-section" id="why-choose-us">
       <div className="container">
@@ -359,40 +442,48 @@ function WhyChooseUs() {
           <div className="why-partner-left">
             <div className="clients-container">
               <h3 className="clients-header">Our Clients</h3>
-              <div className="clients-logo-grid">
-                {clients.map((client, idx) => (
-                  <div 
-                    key={idx} 
-                    className="client-logo-card" 
-                    style={{ 
-                      background: client.bg, 
-                      color: client.text, 
-                      border: client.border || 'none' 
-                    }}
-                  >
-                    {getClientLogo(client.name)}
-                  </div>
-                ))}
+              <div className="carousel-3d-perspective">
+                <div className="carousel-3d-track" ref={clientTrackRef}>
+                  {clients.map((client, idx) => (
+                    <div 
+                      key={idx} 
+                      className="carousel-3d-item client-logo-card" 
+                      data-orig-transform={`rotateY(${idx * (360 / clients.length)}deg) translateZ(${radius}px)`}
+                      style={{ 
+                        background: client.bg, 
+                        color: client.text, 
+                        border: client.border || 'none',
+                        transform: `rotateY(${idx * (360 / clients.length)}deg) translateZ(${radius}px)`
+                      }}
+                    >
+                      {getClientLogo(client.name)}
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
           <div className="why-partner-right">
             <div className="partners-container">
               <h3 className="partners-header">Our Partners</h3>
-              <div className="partners-logo-grid">
-                {partners.map((partner, idx) => (
-                  <div 
-                    key={idx} 
-                    className="partner-logo-card" 
-                    style={{ 
-                      background: partner.bg, 
-                      color: partner.text, 
-                      border: partner.border || 'none' 
-                    }}
-                  >
-                    {getPartnerLogo(partner.name)}
-                  </div>
-                ))}
+              <div className="carousel-3d-perspective">
+                <div className="carousel-3d-track" ref={partnerTrackRef}>
+                  {partners.map((partner, idx) => (
+                    <div 
+                      key={idx} 
+                      className="carousel-3d-item partner-logo-card" 
+                      data-orig-transform={`rotateY(${idx * (360 / partners.length)}deg) translateZ(${radius}px)`}
+                      style={{ 
+                        background: partner.bg, 
+                        color: partner.text, 
+                        border: partner.border || 'none',
+                        transform: `rotateY(${idx * (360 / partners.length)}deg) translateZ(${radius}px)`
+                      }}
+                    >
+                      {getPartnerLogo(partner.name)}
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
