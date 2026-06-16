@@ -333,23 +333,17 @@ function WhyChooseUs() {
       const color3 = [248, 250, 252] // #F8FAFC
       const color4 = [255, 255, 255] // #FFFFFF
 
-      if (clampedProgress < 0.35) {
-        const factor = clampedProgress / 0.35
+      if (clampedProgress < 0.8) {
+        const factor = clampedProgress / 0.8
         bgColor = interpolateColor(color1, color2, factor)
-      } else if (clampedProgress < 0.75) {
-        const factor = (clampedProgress - 0.35) / 0.4
-        bgColor = interpolateColor(color2, color3, factor)
+      } else {
+        const factor = (clampedProgress - 0.8) / 0.2
+        bgColor = interpolateColor(color2, color4, factor)
         if (factor > 0.5) {
           textColor = '#062041'
           badgeBg = 'rgba(43, 179, 255, 0.1)'
           badgeText = '#1A4E9B'
         }
-      } else {
-        const factor = (clampedProgress - 0.75) / 0.25
-        bgColor = interpolateColor(color3, color4, factor)
-        textColor = '#062041'
-        badgeBg = 'rgba(43, 179, 255, 0.1)'
-        badgeText = '#1A4E9B'
       }
 
       section.style.backgroundColor = bgColor
