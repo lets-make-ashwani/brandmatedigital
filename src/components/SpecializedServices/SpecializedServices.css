@@ -1,0 +1,139 @@
+/* ── SPECIALIZED SERVICES (Dark Section) ── */
+.specialized-section {
+  padding: var(--section-padding);
+  background: var(--gradient-dark);
+  position: relative;
+  overflow: hidden;
+}
+
+.specialized-section .section-title {
+  color: var(--white);
+}
+
+.specialized-section .section-subtitle {
+  color: var(--text-on-dark-muted);
+}
+
+.specialized-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-top: 50px;
+}
+
+.specialized-card {
+  padding: 40px 30px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-xl);
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  transition: all var(--transition-base);
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+}
+
+.specialized-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 30px;
+  width: 0;
+  height: 3px;
+  background: var(--gradient-primary);
+  transition: width var(--transition-base);
+  border-radius: 2px;
+}
+
+.specialized-card:hover::after {
+  width: 60px;
+}
+
+.specialized-card:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(43, 179, 255, 0.3);
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25), 0 0 20px rgba(43, 179, 255, 0.1);
+}
+
+.specialized-card-icon {
+  width: 56px;
+  height: 56px;
+  margin: 0 0 24px 0;
+  background: rgba(43, 179, 255, 0.08);
+  border: 1px solid rgba(43, 179, 255, 0.15);
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: var(--bright-blue);
+  transition: all var(--transition-base);
+}
+
+.specialized-card:hover .specialized-card-icon {
+  background: var(--gradient-primary);
+  color: var(--white);
+  border-color: transparent;
+  transform: scale(1.08) translateY(-2px);
+  box-shadow: 0 0 20px rgba(43, 179, 255, 0.35);
+}
+
+.specialized-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+
+.specialized-card p {
+  font-size: 0.9rem;
+  color: var(--text-on-dark-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Glow effects */
+.specialized-section .glow-1 {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(43, 179, 255, 0.08) 0%, transparent 70%);
+  top: -200px;
+  right: -100px;
+  pointer-events: none;
+}
+
+.specialized-section .glow-2 {
+  position: absolute;
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, rgba(82, 214, 197, 0.06) 0%, transparent 70%);
+  bottom: -150px;
+  left: -100px;
+  pointer-events: none;
+}
+
+@media (max-width: 1024px) {
+  .specialized-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-top: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .specialized-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .specialized-card {
+    padding: 30px 24px;
+  }
+}
+

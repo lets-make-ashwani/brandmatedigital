@@ -1,0 +1,59 @@
+/* ── TECHNOLOGY STACK ── */
+.tech-section {
+  padding: var(--section-padding);
+  background: var(--bg-light);
+}
+
+.tech-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 24px;
+}
+
+.tech-item {
+  padding: 32px 20px;
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(7, 26, 61, 0.06);
+  text-align: center;
+  transition: all var(--transition-base);
+}
+
+.tech-item:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(43, 179, 255, 0.15);
+}
+
+.tech-item-icon {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 14px;
+  background: var(--gradient-card);
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: var(--bright-blue);
+  transition: all var(--transition-base);
+}
+
+.tech-item:hover .tech-item-icon {
+  transform: scale(1.1);
+}
+
+.tech-item h4 {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--navy-primary);
+}
+
+@media (max-width: 1024px) {
+  .tech-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 480px) {
+  .tech-grid { grid-template-columns: repeat(2, 1fr); }
+}
