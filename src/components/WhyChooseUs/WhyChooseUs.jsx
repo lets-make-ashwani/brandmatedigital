@@ -220,36 +220,27 @@ const getPartnerLogo = (name) => {
 const getClientLogo = (name) => {
   switch (name) {
     case 'Apollo':
-      return <span style={{ color: '#2B2A7F', fontFamily: 'sans-serif', fontWeight: '900', fontSize: '1.25rem', letterSpacing: '-0.5px' }}>apollo</span>
+      return <img src="/images/brandlogo/apollo-tyres.svg" alt="Apollo Tyres" style={{ width: '85%', height: '85%', objectFit: 'contain' }} />
     case 'Raymond':
-      return <span style={{ color: '#FFF', fontFamily: 'Georgia, serif', fontWeight: 'bold', fontSize: '1.05rem', fontStyle: 'italic', letterSpacing: '0.5px' }}>Raymond</span>
+      return <img src="/images/brandlogo/download.png" alt="Raymond" style={{ width: '85%', height: '85%', objectFit: 'contain' }} />
     case 'Royal Enfield':
-      return <span style={{ color: '#FFF', fontFamily: 'sans-serif', fontWeight: '900', fontSize: '0.85rem', letterSpacing: '0.5px' }}>ROYAL ENFIELD</span>
+      return <img src="/images/brandlogo/Royal_Enfield_logo_new.svg.png" alt="Royal Enfield" style={{ width: '85%', height: '85%', objectFit: 'contain' }} />
     case 'Lee Cooper':
-      return <span style={{ color: '#FFF', fontFamily: 'Impact, Arial Black, sans-serif', fontWeight: '900', fontSize: '0.9rem', fontStyle: 'italic' }}>Lee Cooper</span>
+      return <img src="/images/brandlogo/lee-cooper-logo-WWC4xk8h.jpg" alt="Lee Cooper" style={{ width: '85%', height: '85%', objectFit: 'contain' }} />
     case 'Jawa':
-      return <span style={{ color: '#A61A1D', fontFamily: 'Georgia, serif', fontWeight: 'bold', fontSize: '1rem', letterSpacing: '1px' }}>JAWA</span>
+      return <img src="/images/brandlogo/Jawa-logo.png" alt="Jawa" style={{ width: '85%', height: '85%', objectFit: 'contain' }} />
     case 'Realme':
-      return <span style={{ color: '#000', fontFamily: 'sans-serif', fontWeight: 'bold', fontSize: '1.15rem', letterSpacing: '-0.5px' }}>realme</span>
+      return <img src="/images/brandlogo/Realme_logo.svg.png" alt="Realme" style={{ width: '85%', height: '85%', objectFit: 'contain' }} />
     case 'UPTv Live':
-      return (
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', lineHeight: '1' }}>
-          <span style={{ fontSize: '0.55rem', fontWeight: 'bold', letterSpacing: '0.5px' }}>उत्तर प्रदेश</span>
-          <span style={{ fontSize: '0.95rem', fontWeight: '900' }}>UPTv LIVE</span>
-        </div>
-      )
+      return <img src="/images/brandlogo/uptvlive.jpeg" alt="UPTv Live" style={{ width: '85%', height: '85%', objectFit: 'contain', borderRadius: '4px' }} />
     case 'Profinity':
-      return <span style={{ color: '#F15A24', fontFamily: 'sans-serif', fontWeight: '900', fontSize: '0.8rem', letterSpacing: '1px' }}>PROFINITY</span>
+      return <img src="/images/brandlogo/profinity-logo-orange.png" alt="Profinity" style={{ width: '85%', height: '85%', objectFit: 'contain' }} />
     case 'CEAT':
-      return <span style={{ color: '#FFF', fontFamily: 'Impact, sans-serif', fontWeight: 'bold', fontSize: '1.35rem', letterSpacing: '1px' }}>CEAT</span>
+      return <img src="/images/brandlogo/CEAT_Logo.svg.png" alt="CEAT" style={{ width: '85%', height: '85%', objectFit: 'contain' }} />
     case 'Kyonkat':
-      return (
-        <span style={{ color: '#000', fontFamily: 'sans-serif', fontWeight: '900', fontSize: '0.95rem' }}>
-          Kyon<span style={{ color: '#F15A24' }}>kat</span>
-        </span>
-      )
+      return <img src="/images/brandlogo/Kyonkat-black.svg" alt="Kyonkat" style={{ width: '85%', height: '85%', objectFit: 'contain' }} />
     case 'Killer':
-      return <span style={{ color: '#FFF', fontFamily: 'Impact, sans-serif', fontWeight: 'bold', fontSize: '1.15rem', letterSpacing: '0.5px' }}>KILLER</span>
+      return <img src="/images/brandlogo/killer-logo-png_seeklogo-315960.png" alt="Killer" style={{ width: '85%', height: '85%', objectFit: 'contain' }} />
     case 'Pragyan Public School':
       return (
         <div style={{ border: '2px solid #002E7E', borderRadius: '4px', padding: '1px 5px', display: 'flex', flexDirection: 'column', alignItems: 'center', lineHeight: '1' }}>
@@ -260,24 +251,17 @@ const getClientLogo = (name) => {
     case 'Varuna':
       return <span style={{ fontFamily: 'sans-serif', fontWeight: '900', fontSize: '1.05rem', letterSpacing: '0.5px' }}>VARUNA</span>
     case 'Tata':
-      return (
-        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-          <div style={{ width: '18px', height: '18px', borderRadius: '50%', border: '2px solid #005A9C', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <span style={{ color: '#005A9C', fontSize: '8px', fontWeight: 'bold' }}>T</span>
-          </div>
-          <span style={{ color: '#005A9C', fontFamily: 'sans-serif', fontWeight: 'bold', fontSize: '0.95rem', letterSpacing: '0.5px' }}>TATA</span>
-        </div>
-      )
+      return <img src="/images/brandlogo/Tata-Logo-1988.png" alt="Tata" style={{ width: '85%', height: '85%', objectFit: 'contain' }} />
     case 'Buildoption':
       return <span style={{ color: '#FFC800', fontFamily: 'sans-serif', fontWeight: '900', fontSize: '0.85rem' }}>Buildo-ption</span>
     case 'Adani':
-      return <span style={{ color: '#5C2D91', fontFamily: 'sans-serif', fontWeight: 'bold', fontSize: '1.25rem' }}>adani</span>
+      return <img src="/images/brandlogo/Adani_logo_2012.svg.png" alt="Adani" style={{ width: '85%', height: '85%', objectFit: 'contain' }} />
     case 'Mr n Mrs Pet':
-      return <span style={{ color: '#4CAF50', fontFamily: 'sans-serif', fontWeight: 'bold', fontSize: '0.85rem' }}>Mr n Mrs Pet</span>
+      return <img src="/images/brandlogo/15100470178830.png" alt="Mr n Mrs Pet" style={{ width: '85%', height: '85%', objectFit: 'contain' }} />
     case 'MedVantage':
       return <span style={{ color: '#1B75BC', fontFamily: 'sans-serif', fontWeight: '900', fontSize: '0.85rem' }}>MedVantage</span>
     case 'Verelios':
-      return <span style={{ color: '#00F0FF', fontFamily: 'sans-serif', fontWeight: '900', fontSize: '0.95rem', letterSpacing: '0.5px' }}>VERELIOS</span>
+      return <img src="/images/brandlogo/verelios.jpg" alt="Verelios" style={{ width: '85%', height: '85%', objectFit: 'contain' }} />
     case 'Kashviha':
       return <span style={{ color: '#0A2540', fontFamily: 'sans-serif', fontWeight: 'bold', fontSize: '0.85rem' }}>KASHVIHA</span>
     case 'Smelita Aromas':
@@ -437,25 +421,25 @@ function WhyChooseUs() {
   ]
 
   const clients = [
-    { name: 'Apollo', bg: '#ffffff', text: '#2B2A7F', border: '1px solid rgba(7,26,61,0.08)' },
-    { name: 'Raymond', bg: '#D9222A', text: '#ffffff' },
-    { name: 'Royal Enfield', bg: '#E31837', text: '#ffffff' },
-    { name: 'Lee Cooper', bg: '#E31837', text: '#ffffff' },
-    { name: 'Jawa', bg: '#ffffff', text: '#A61A1D', border: '2px solid #A61A1D' },
-    { name: 'Realme', bg: '#FFC800', text: '#000000' },
-    { name: 'UPTv Live', bg: '#A61A1D', text: '#ffffff' },
-    { name: 'Profinity', bg: '#122347', text: '#F15A24' },
-    { name: 'CEAT', bg: '#002E7E', text: '#ffffff' },
-    { name: 'Kyonkat', bg: '#ffffff', text: '#000000', border: '1px solid rgba(7,26,61,0.08)' },
-    { name: 'Killer', bg: '#000000', text: '#ffffff' },
+    { name: 'Apollo', bg: '#ffffff', border: '1px solid rgba(7,26,61,0.08)' },
+    { name: 'Raymond', bg: '#ffffff', border: '1px solid rgba(7,26,61,0.08)' },
+    { name: 'Royal Enfield', bg: '#ffffff', border: '1px solid rgba(7,26,61,0.08)' },
+    { name: 'Lee Cooper', bg: '#ffffff', border: '1px solid rgba(7,26,61,0.08)' },
+    { name: 'Jawa', bg: '#ffffff', border: '1px solid rgba(7,26,61,0.08)' },
+    { name: 'Realme', bg: '#ffffff', border: '1px solid rgba(7,26,61,0.08)' },
+    { name: 'UPTv Live', bg: '#ffffff', border: '1px solid rgba(7,26,61,0.08)' },
+    { name: 'Profinity', bg: '#ffffff', border: '1px solid rgba(7,26,61,0.08)' },
+    { name: 'CEAT', bg: '#ffffff', border: '1px solid rgba(7,26,61,0.08)' },
+    { name: 'Kyonkat', bg: '#ffffff', border: '1px solid rgba(7,26,61,0.08)' },
+    { name: 'Killer', bg: '#ffffff', border: '1px solid rgba(7,26,61,0.08)' },
     { name: 'Pragyan Public School', bg: '#ffffff', text: '#002E7E', border: '1px solid rgba(7,26,61,0.08)' },
     { name: 'Varuna', bg: '#0066B2', text: '#ffffff' },
-    { name: 'Tata', bg: '#ffffff', text: '#005A9C', border: '1px solid rgba(7,26,61,0.08)' },
+    { name: 'Tata', bg: '#ffffff', border: '1px solid rgba(7,26,61,0.08)' },
     { name: 'Buildoption', bg: '#000000', text: '#FFC800' },
-    { name: 'Adani', bg: '#ffffff', text: '#5C2D91', border: '1px solid rgba(7,26,61,0.08)' },
-    { name: 'Mr n Mrs Pet', bg: '#ffffff', text: '#4CAF50', border: '1px solid rgba(7,26,61,0.08)' },
+    { name: 'Adani', bg: '#ffffff', border: '1px solid rgba(7,26,61,0.08)' },
+    { name: 'Mr n Mrs Pet', bg: '#ffffff', border: '1px solid rgba(7,26,61,0.08)' },
     { name: 'MedVantage', bg: '#ffffff', text: '#1B75BC', border: '1px solid rgba(7,26,61,0.08)' },
-    { name: 'Verelios', bg: '#000000', text: '#00F0FF' },
+    { name: 'Verelios', bg: '#ffffff', border: '1px solid rgba(7,26,61,0.08)' },
     { name: 'Kashviha', bg: '#ffffff', text: '#0A2540', border: '1px solid rgba(7,26,61,0.08)' },
     { name: 'Smelita Aromas', bg: '#000000', text: '#D4AF37' },
     { name: 'Curry Cave', bg: '#ffffff', text: '#000000', border: '1px solid rgba(7,26,61,0.08)' }
