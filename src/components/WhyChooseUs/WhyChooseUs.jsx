@@ -290,84 +290,144 @@ const getClientLogo = (name) => {
 }
 
 function WhyChooseUs() {
-  const clientTrackRef = React.useRef(null)
-  const partnerTrackRef = React.useRef(null)
+  const sectionRef = React.useRef(null)
+  const gridRef = React.useRef(null)
 
   React.useEffect(() => {
     let animationFrameId
-    let lastScrollY = window.scrollY
-    let currentAngle = 0
-    const radius = 280 // Cylinder radius in px
+    const section = sectionRef.current
+    const grid = gridRef.current
+    if (!section || !grid) return
 
-    const updateRotation = () => {
-      const scrollY = window.scrollY
-      // Auto-spin base speed: slow, gentle rotation
-      currentAngle += 0.2
-      
-      // Add scroll velocity/influence
-      const scrollDelta = scrollY - lastScrollY
-      currentAngle += scrollDelta * 0.08
-      lastScrollY = scrollY
-
-      // Rotate Client Track Clockwise
-      if (clientTrackRef.current) {
-        clientTrackRef.current.style.transform = `rotateY(${currentAngle}deg)`
-        const items = clientTrackRef.current.children
-        const count = items.length
-        const angleStep = 360 / count
-        
-        for (let i = 0; i < count; i++) {
-          const itemAngle = (currentAngle + i * angleStep) % 360
-          const rad = (itemAngle * Math.PI) / 180
-          const cosVal = Math.cos(rad) // 1 at front, -1 at back
-          
-          // Smooth depth blending
-          const opacity = 0.08 + 0.92 * (cosVal + 1) / 2
-          const scale = 0.75 + 0.3 * (cosVal + 1) / 2
-          const blurVal = (1 - (cosVal + 1) / 2) * 2.5
-          
-          items[i].style.opacity = opacity
-          items[i].style.filter = `blur(${blurVal}px)`
-          items[i].style.zIndex = Math.round((cosVal + 1) * 100)
-          
-          const origTransform = items[i].getAttribute('data-orig-transform')
-          if (origTransform) {
-            items[i].style.transform = `${origTransform} scale(${scale})`
-          }
-        }
-      }
-
-      // Rotate Partner Track Counter-Clockwise
-      if (partnerTrackRef.current) {
-        partnerTrackRef.current.style.transform = `rotateY(${-currentAngle}deg)`
-        const items = partnerTrackRef.current.children
-        const count = items.length
-        const angleStep = 360 / count
-        
-        for (let i = 0; i < count; i++) {
-          const itemAngle = (-currentAngle + i * angleStep) % 360
-          const rad = (itemAngle * Math.PI) / 180
-          const cosVal = Math.cos(rad) // 1 at front, -1 at back
-          
-          const opacity = 0.08 + 0.92 * (cosVal + 1) / 2
-          const scale = 0.75 + 0.3 * (cosVal + 1) / 2
-          const blurVal = (1 - (cosVal + 1) / 2) * 2.5
-          
-          items[i].style.opacity = opacity
-          items[i].style.filter = `blur(${blurVal}px)`
-          items[i].style.zIndex = Math.round((cosVal + 1) * 100)
-          
-          const origTransform = items[i].getAttribute('data-orig-transform')
-          if (origTransform) {
-            items[i].style.transform = `${origTransform} scale(${scale})`
-          }
-        }
-      }
-
-      animationFrameId = requestAnimationFrame(updateRotation)
+    // Pre-calculate animation ranges for the 45 logo items
+    const ranges = []
+    const count = 45
+    for (let i = 0; i < count; i++) {
+      // Staggered start ranges from 0.0 to 0.72
+      const start = (i * 0.72) / count
+      const end = start + 0.25 // each logo is active for 25% of the scroll timeline
+      ranges.push({ start, end })
     }
 
-    animationFrameId = requestAnimationFrame(updateRotation)
+    const updatePosition = () => {
+      const rect = section.getBoundingClientRect()
+      const scrollHeight = rect.height - window.innerHeight
+      if (scrollHeight <= 0) {
+        animationFrameId = requestAnimationFrame(updatePosition)
+        return
+      }
+
+      // Calculate progress (0 to 1)
+      const progress = -rect.top / scrollHeight
+      const clampedProgress = Math.max(0, Math.min(1, progress))
+
+      // ── Background Color Fusion Transition ──
+      // Deep Navy (#062041) -> Dark Navy (#0B1F4D) -> Slate/White (#F8FAFC / #FFFFFF)
+      let bgColor
+      let textColor = '#ffffff'
+      let badgeBg = 'rgba(255, 255, 255, 0.08)'
+      let badgeText = 'var(--bright-blue)'
+      
+      const color1 = [6, 32, 65]     // #062041
+      const color2 = [11, 31, 77]    // #0B1F4D
+      const color3 = [248, 250, 252] // #F8FAFC
+      const color4 = [255, 255, 255] // #FFFFFF
+
+      if (clampedProgress < 0.35) {
+        const factor = clampedProgress / 0.35
+        bgColor = interpolateColor(color1, color2, factor)
+      } else if (clampedProgress < 0.75) {
+        const factor = (clampedProgress - 0.35) / 0.4
+        bgColor = interpolateColor(color2, color3, factor)
+        if (factor > 0.5) {
+          textColor = '#062041'
+          badgeBg = 'rgba(43, 179, 255, 0.1)'
+          badgeText = '#1A4E9B'
+        }
+      } else {
+        const factor = (clampedProgress - 0.75) / 0.25
+        bgColor = interpolateColor(color3, color4, factor)
+        textColor = '#062041'
+        badgeBg = 'rgba(43, 179, 255, 0.1)'
+        badgeText = '#1A4E9B'
+      }
+
+      section.style.backgroundColor = bgColor
+      
+      // Update items style
+      const items = grid.children
+      
+      // 1. Update Logo Items
+      for (let i = 0; i < count; i++) {
+        const item = items[i]
+        if (!item) continue
+        
+        const { start, end } = ranges[i]
+        
+        if (clampedProgress >= start && clampedProgress <= end) {
+          const p = (clampedProgress - start) / (end - start)
+          const opacity = Math.sin(p * Math.PI) // Sine curve fade in and out
+          const translateZ = -1200 + 2250 * p  // Fly in from distance to foreground
+          const blurVal = (1 - opacity) * 5
+          const scale = 0.5 + 0.7 * p
+          
+          item.style.display = 'flex'
+          item.style.opacity = opacity
+          item.style.filter = `blur(${blurVal}px)`
+          item.style.transform = `translateZ(${translateZ}px) scale(${scale})`
+          item.style.zIndex = Math.round(opacity * 100)
+        } else {
+          item.style.display = 'none'
+        }
+      }
+
+      // 2. Update Special Centered Title Card (at index 45)
+      const specialItem = items[count]
+      if (specialItem) {
+        const specialStart = 0.0
+        const specialEnd = 0.85
+        
+        if (clampedProgress >= specialStart && clampedProgress <= specialEnd) {
+          const p = (clampedProgress - specialStart) / (specialEnd - specialStart)
+          let opacity = 1
+          if (p < 0.2) {
+            opacity = p / 0.2
+          } else if (p > 0.8) {
+            opacity = (1 - p) / 0.2
+          }
+          
+          const translateZ = -600 * (1 - opacity)
+          const scale = 0.85 + 0.15 * opacity
+          
+          specialItem.style.display = 'flex'
+          specialItem.style.opacity = opacity
+          specialItem.style.transform = `translateZ(${translateZ}px) scale(${scale})`
+          
+          const titleEl = specialItem.querySelector('.special-title')
+          if (titleEl) {
+            titleEl.style.color = textColor
+            const badge = titleEl.querySelector('.section-badge')
+            if (badge) {
+              badge.style.background = badgeBg
+              badge.style.color = badgeText
+            }
+          }
+        } else {
+          specialItem.style.display = 'none'
+        }
+      }
+
+      animationFrameId = requestAnimationFrame(updatePosition)
+    }
+
+    const interpolateColor = (color1, color2, factor) => {
+      const r = Math.round(color1[0] + factor * (color2[0] - color1[0]))
+      const g = Math.round(color1[1] + factor * (color2[1] - color1[1]))
+      const b = Math.round(color1[2] + factor * (color2[2] - color1[2]))
+      return `rgb(${r}, ${g}, ${b})`
+    }
+
+    animationFrameId = requestAnimationFrame(updatePosition)
     return () => cancelAnimationFrame(animationFrameId)
   }, [])
 
@@ -433,75 +493,84 @@ function WhyChooseUs() {
     { name: 'Disney+ Hotstar', bg: '#0c111b', text: '#fff' }
   ]
 
-  const radius = 280
+  // Interleave clients and partners to mix them
+  const mixedLogos = []
+  const maxLength = Math.max(clients.length, partners.length)
+  for (let i = 0; i < maxLength; i++) {
+    if (i < clients.length) {
+      mixedLogos.push({ ...clients[i], type: 'client' })
+    }
+    if (i < partners.length) {
+      mixedLogos.push({ ...partners[i], type: 'partner' })
+    }
+  }
+
+  // Row/col positions for the outer 12 cells of a 4x4 grid (skicking center 2x2)
+  const gridCells = [
+    { r: 1, c: 1 }, { r: 1, c: 2 }, { r: 1, c: 3 }, { r: 1, c: 4 },
+    { r: 2, c: 1 },                                 { r: 2, c: 4 },
+    { r: 3, c: 1 },                                 { r: 3, c: 4 },
+    { r: 4, c: 1 }, { r: 4, c: 2 }, { r: 4, c: 3 }, { r: 4, c: 4 }
+  ]
 
   return (
-    <section className="why-section" id="why-choose-us">
-      <div className="container">
-        <div className="why-partner-wrapper animate-on-scroll">
-          <div className="why-partner-left">
-            <div className="clients-container">
-              <h3 className="clients-header">Our Clients</h3>
-              <div className="carousel-3d-perspective">
-                <div className="carousel-3d-track" ref={clientTrackRef}>
-                  {clients.map((client, idx) => (
-                    <div 
-                      key={idx} 
-                      className="carousel-3d-item client-logo-card" 
-                      data-orig-transform={`rotateY(${idx * (360 / clients.length)}deg) translateZ(${radius}px)`}
-                      style={{ 
-                        background: client.bg, 
-                        color: client.text, 
-                        border: client.border || 'none',
-                        transform: `rotateY(${idx * (360 / clients.length)}deg) translateZ(${radius}px)`
-                      }}
-                    >
-                      {getClientLogo(client.name)}
-                    </div>
-                  ))}
-                </div>
-              </div>
+    <section className="why-section-sticky" id="why-choose-us" ref={sectionRef}>
+      <div className="stuck-grid" ref={gridRef}>
+        {/* Render mixed logo items (index 0 to 44) */}
+        {mixedLogos.map((logo, idx) => {
+          const cell = gridCells[idx % 12]
+          return (
+            <div 
+              key={idx} 
+              className={`grid-item logo-item ${logo.type === 'client' ? 'client-logo-card' : 'partner-logo-card'}`}
+              style={{ 
+                gridRow: cell.r, 
+                gridColumn: cell.c,
+                background: logo.bg, 
+                color: logo.text, 
+                border: logo.border || 'none',
+                display: 'none'
+              }}
+            >
+              {logo.type === 'client' ? getClientLogo(logo.name) : getPartnerLogo(logo.name)}
             </div>
-          </div>
-          <div className="why-partner-right">
-            <div className="partners-container">
-              <h3 className="partners-header">Our Partners</h3>
-              <div className="carousel-3d-perspective">
-                <div className="carousel-3d-track" ref={partnerTrackRef}>
-                  {partners.map((partner, idx) => (
-                    <div 
-                      key={idx} 
-                      className="carousel-3d-item partner-logo-card" 
-                      data-orig-transform={`rotateY(${idx * (360 / partners.length)}deg) translateZ(${radius}px)`}
-                      style={{ 
-                        background: partner.bg, 
-                        color: partner.text, 
-                        border: partner.border || 'none',
-                        transform: `rotateY(${idx * (360 / partners.length)}deg) translateZ(${radius}px)`
-                      }}
-                    >
-                      {getPartnerLogo(partner.name)}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <div className="section-header animate-on-scroll" style={{ textAlign: 'center', marginBottom: '48px' }}>
-          <div className="section-badge">Our Values</div>
-          <h2 className="section-title">What Defines Our Approach</h2>
-        </div>
+          )
+        })}
 
-        <div className="why-grid">
-          {cards.map((card, i) => (
-            <div className="why-card animate-on-scroll" key={i} id={`why-card-${i}`} style={{ transitionDelay: `${i * 0.08}s` }}>
-              <div className="why-card-icon">{card.icon}</div>
-              <h3>{card.title}</h3>
-              <p>{card.text}</p>
-            </div>
-          ))}
+        {/* Special Centered Title Card (index 45) */}
+        <div 
+          className="grid-item special"
+          style={{
+            gridRow: '2 / span 2',
+            gridColumn: '2 / span 2',
+            display: 'none'
+          }}
+        >
+          <div className="special-title">
+            <span className="section-badge">Trusted Brands & Partners</span>
+            <h2><b>Clients & Partners</b></h2>
+            <p>Scroll down to reveal the network of companies that drive with BrandMate.</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Values Section below sticky animation */}
+      <div className="why-values-section" style={{ background: '#ffffff', padding: '120px 0', position: 'relative', zIndex: 10 }}>
+        <div className="container">
+          <div className="section-header animate-on-scroll" style={{ textAlign: 'center', marginBottom: '48px' }}>
+            <div className="section-badge">Our Values</div>
+            <h2 className="section-title">What Defines Our Approach</h2>
+          </div>
+
+          <div className="why-grid">
+            {cards.map((card, i) => (
+              <div className="why-card animate-on-scroll" key={i} id={`why-card-${i}`} style={{ transitionDelay: `${i * 0.08}s` }}>
+                <div className="why-card-icon">{card.icon}</div>
+                <h3>{card.title}</h3>
+                <p>{card.text}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

@@ -95,120 +95,211 @@
   line-height: 1.65;
 }
 
-/* ── PARTNERS SECTION ── */
-.partners-container {
-  background: #062041;
-  border-radius: var(--radius-2xl);
-  padding: 40px 24px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  height: 380px;
+/* ── PARTNERS & CLIENTS STICKY 3D SHOWCASE ── */
+.why-section-sticky {
+  position: relative;
+  height: 320vh; /* Scroll timeline height */
+  width: 100%;
+  background-color: #062041; /* Match bottom of Hero */
+  transition: background-color 0.1s ease-out;
+  overflow: clip;
+}
+
+.stuck-grid {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  display: grid;
+  grid-template-rows: repeat(4, 1fr);
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  padding: 80px 8%;
+  align-items: center;
+  justify-items: center;
+  perspective: 1500px;
+  transform-style: preserve-3d;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* Individual logo grid items */
+.stuck-grid .grid-item {
+  width: 100%;
+  max-width: 180px;
+  height: 85px;
+  border-radius: var(--radius-xl);
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
+  transform-style: preserve-3d;
+  will-change: transform, opacity, filter;
+  transition: border-color var(--transition-base), background var(--transition-base), box-shadow var(--transition-base);
+  box-shadow: var(--shadow-sm);
+  padding: 12px 10px;
+  box-sizing: border-box;
 }
 
-.partners-header {
-  font-family: var(--font-display);
-  font-size: 1.4rem;
-  font-weight: 800;
-  text-align: center;
-  margin-bottom: 20px;
-  color: var(--white);
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-}
-
+/* Specific item designs to match brand styles */
 .partner-logo-card {
   font-family: var(--font-display);
   font-weight: 800;
   font-size: 1.05rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: var(--shadow-sm);
-}
-
-/* ── CLIENTS SECTION ── */
-.clients-container {
-  background: #062041;
-  border-radius: var(--radius-2xl);
-  padding: 40px 24px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  height: 380px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.clients-header {
-  font-family: var(--font-display);
-  font-size: 1.4rem;
-  font-weight: 800;
-  text-align: center;
-  margin-bottom: 20px;
-  color: var(--white);
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
 }
 
 .client-logo-card {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: var(--shadow-sm);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.05rem;
 }
 
-/* ── 3D Carousel Styles ── */
-.carousel-3d-perspective {
+/* Logo icon / element constraints */
+.stuck-grid .grid-item svg {
+  max-width: 100%;
+  max-height: 100%;
+  height: auto;
+}
+
+.stuck-grid .grid-item span {
+  white-space: nowrap;
+}
+
+/* Special Centered Title Card */
+.stuck-grid .grid-item.special {
+  grid-row: 2 / span 2;
+  grid-column: 2 / span 2;
   width: 100%;
-  height: 240px;
-  perspective: 1200px;
-  position: relative;
+  max-width: 480px;
+  height: 100%;
+  max-height: 240px;
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
+  text-align: center;
+  z-index: 50;
+  padding: 0;
 }
 
-.carousel-3d-track {
-  width: 130px;
-  height: 60px;
-  position: relative;
-  transform-style: preserve-3d;
-  will-change: transform;
-}
-
-.carousel-3d-item {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 130px;
-  height: 60px;
-  border-radius: var(--radius-lg);
+.special-title {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-  transform-origin: center center;
-  backface-visibility: visible;
-  will-change: transform, opacity, filter;
-  transition: border-color var(--transition-base), background var(--transition-base), box-shadow var(--transition-base);
+  gap: 16px;
 }
 
-.carousel-3d-item:hover {
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 0 15px rgba(43, 179, 255, 0.2);
-  border-color: rgba(43, 179, 255, 0.4) !important;
+.special-title h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.5vw, 3.2rem);
+  font-weight: 900;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin: 0;
+  transition: color 0.2s ease;
+}
+
+.special-title p {
+  font-size: 1.05rem;
+  color: var(--text-on-dark-muted);
+  max-width: 380px;
+  line-height: 1.6;
+  margin: 0;
+  transition: color 0.2s ease;
+}
+
+/* Values section styling */
+.why-values-section {
+  position: relative;
+  z-index: 10;
+  background-color: var(--white);
+  border-top: 1px solid rgba(7, 26, 61, 0.05);
+}
+
+/* ── RESPONSIVE DESIGN ── */
+@media (max-width: 1200px) {
+  .stuck-grid {
+    padding: 60px 5%;
+    gap: 18px;
+  }
+  .stuck-grid .grid-item {
+    max-width: 150px;
+    height: 75px;
+    border-radius: var(--radius-lg);
+  }
 }
 
 @media (max-width: 1024px) {
-  .why-partner-wrapper {
-    grid-template-columns: 1fr;
-    gap: 40px;
-    margin-bottom: 60px;
+  .why-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
-  .why-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .stuck-grid {
+    padding: 40px 3%;
+    gap: 12px;
+  }
+  .stuck-grid .grid-item {
+    max-width: 110px;
+    height: 60px;
+    border-radius: var(--radius-md);
+  }
+  .stuck-grid .grid-item.special {
+    max-width: 320px;
+  }
+  .special-title h2 {
+    font-size: 2.2rem;
+  }
+  .special-title p {
+    font-size: 0.9rem;
+    max-width: 280px;
+  }
+  
+  /* Responsive card elements */
+  .stuck-grid .grid-item span {
+    font-size: 0.75rem !important;
+  }
+  .stuck-grid .grid-item svg {
+    transform: scale(0.85);
+  }
 }
 
 @media (max-width: 480px) {
-  .why-grid { grid-template-columns: 1fr; }
+  .why-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .stuck-grid {
+    padding: 20px 2%;
+    gap: 8px;
+  }
+  .stuck-grid .grid-item {
+    max-width: 80px;
+    height: 52px;
+    border-radius: var(--radius-sm);
+  }
+  .stuck-grid .grid-item.special {
+    max-width: 200px;
+  }
+  .special-title h2 {
+    font-size: 1.6rem;
+  }
+  .special-title p {
+    font-size: 0.75rem;
+    max-width: 180px;
+  }
+  
+  /* Scale down font sizes and hide names when icon is present */
+  .stuck-grid .grid-item span {
+    font-size: 0.65rem !important;
+  }
+  .stuck-grid .grid-item div svg + span {
+    display: none !important;
+  }
+  .stuck-grid .grid-item svg {
+    transform: scale(0.75);
+  }
 }
