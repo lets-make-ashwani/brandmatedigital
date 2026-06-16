@@ -11,7 +11,7 @@ function Footer() {
           {/* Brand Column */}
           <div className="footer-brand">
             <Link to="/" className="nav-logo">
-              <img src="/images/logo-white.png" alt="BrandMate Digital" className="nav-logo-img footer-logo-img" />
+              <img src="/images/logos/logo-white.png" alt="BrandMate Digital" className="nav-logo-img footer-logo-img" />
             </Link>
             <p>Your trusted growth partner. Helping ambitious businesses scale with intent, precision, and measurable outcomes.</p>
             <p style={{ fontSize: '0.9rem', color: 'var(--teal-accent)', fontWeight: 700, margin: '12px 0 16px 0' }}>

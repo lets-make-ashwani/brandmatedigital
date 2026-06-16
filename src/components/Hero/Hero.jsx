@@ -65,7 +65,7 @@ function Hero() {
 
         <div className="hero-visual" id="hero-visual">
           <div className="hero-image-wrapper">
-            <img src="/images/hero-illustration.png" alt="Digital Marketing Dashboard - BrandMate Digital" />
+            <img src="/images/illustrations/hero-illustration.png" alt="Digital Marketing Dashboard - BrandMate Digital" />
             <div className="hero-float-element el-1"></div>
             <div className="hero-float-element el-2"></div>
             <div className="hero-float-element el-3"></div>

@@ -24,7 +24,7 @@ function Navbar() {
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`} id="navbar">
       <div className="container">
         <Link to="/" className="nav-logo" id="nav-logo" onClick={() => setMobileOpen(false)}>
-          <img src="/images/logo-white.png" alt="BrandMate Digital" className="nav-logo-img" />
+          <img src="/images/logos/logo-white.png" alt="BrandMate Digital" className="nav-logo-img" />
         </Link>
         <div className={`nav-links ${mobileOpen ? 'mobile-open' : ''}`} id="nav-links">
           {links.map((link) => (

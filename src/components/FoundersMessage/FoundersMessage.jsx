@@ -30,7 +30,7 @@ function FoundersMessage() {
           </div>
           <div className="founder-visual animate-on-scroll">
             <div className="founder-visual-card">
-              <img src="/images/ceo image.jpg" alt="Vikalp Srivastava - Founder & CEO" />
+              <img src="/images/team/ceo-image.jpg" alt="Vikalp Srivastava - Founder & CEO" />
               <div className="founder-badge-quote">
                 "Growth is engineered - not assumed."
               </div>

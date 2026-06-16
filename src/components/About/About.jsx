@@ -14,7 +14,7 @@ function About() {
       <div className="container">
         <div className="about-grid">
           <div className="about-image-card animate-on-scroll" id="about-image">
-            <img src="/images/about-illustration.png" alt="About BrandMate Digital" />
+            <img src="/images/illustrations/about-illustration.png" alt="About BrandMate Digital" />
             <div className="about-image-overlay">
               <h4>Digital Transformation</h4>
               <p>Driven by creativity, defined by results</p>
